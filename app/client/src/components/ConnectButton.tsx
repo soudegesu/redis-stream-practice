@@ -5,16 +5,16 @@ import { ChatMessage, recieveMessagesAtom, socketAtom } from '../states';
 import { io } from 'socket.io-client';
 import { API_ENDPOINT } from '../constants';
 
-const StartButton: FC = () => {
+const ConnectButton: FC = () => {
 
-  const { handleOnClick } = useStartButton();
+  const { handleOnClick } = useConnectButton();
 
   return (
-    <Button variant='outlined' onClick={handleOnClick}>Start</Button>
+    <Button variant='outlined' onClick={handleOnClick}>Connect</Button>
   )
 }
 
-const useStartButton = () => {
+const useConnectButton = () => {
 
   const [socket, setSocket] = useRecoilState(socketAtom);
 
@@ -88,4 +88,4 @@ const useStartButton = () => {
   }
 }
 
-export default StartButton;
+export default ConnectButton;

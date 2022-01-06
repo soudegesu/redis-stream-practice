@@ -3,14 +3,14 @@ import { FC, useCallback } from 'react'
 import { useRecoilValue } from 'recoil';
 import { socketAtom } from '../states';
 
-const StopButton: FC = () => {
+const DisconnectButton: FC = () => {
 
-  const { handleOnClick } = useStopButton();
+  const { handleOnClick } = useDisconnectButton();
 
-  return <Button variant='outlined' onClick={handleOnClick}>Stop</Button>
+  return <Button variant='outlined' onClick={handleOnClick}>Disconnect</Button>
 }
 
-const useStopButton = () => {
+const useDisconnectButton = () => {
 
   const socket = useRecoilValue(socketAtom);
 
@@ -25,4 +25,4 @@ const useStopButton = () => {
 }
 
 
-export default StopButton;
+export default DisconnectButton;
