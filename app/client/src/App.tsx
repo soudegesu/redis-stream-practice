@@ -5,14 +5,16 @@ import { RecoilRoot } from 'recoil';
 import './App.css';
 import StartButton from './components/StartButton';
 import StopButton from './components/StopButton';
+import TextArea from './components/TextArea';
+import TextForm from './components/TextForm';
 
 const useStyles = makeStyles(() =>
   createStyles({
     paper: {
-      height: '100%'
+      height: '100%',
+      padding: 10,
     },
     control: {
-      padding: 10
     }
   }),
 );
@@ -33,6 +35,14 @@ const App: FC = () => {
             <StopButton />
           </Grid>
           <Grid item xs={4}/>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={3}>
+            <TextForm />
+          </Grid>
+          <Grid item xs={9}>
+            <TextArea />
+          </Grid>
         </Grid>
       </Paper>
     </RecoilRoot>

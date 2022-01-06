@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import { FC, MouseEventHandler, useCallback, useEffect } from 'react'
-import { useRecoilState } from 'recoil';
-import { socketAtom } from '../states';
+import { useRecoilCallback, useRecoilState } from 'recoil';
+import { ChatMessage, recieveMessagesAtom, socketAtom } from '../states';
 import { io } from 'socket.io-client';
 import { API_ENDPOINT } from '../constants';
 
@@ -17,6 +17,13 @@ const StartButton: FC = () => {
 const useStartButton = () => {
 
   const [socket, setSocket] = useRecoilState(socketAtom);
+
+  const handleOnRecieveMessages = useRecoilCallback(({ snapshot, set }) => async (newMessage: ChatMessage) => {
+    const currentMessages = await snapshot.getPromise(recieveMessagesAtom);
+    console.log(currentMessages);
+    console.log(newMessage);
+    set(recieveMessagesAtom, [...currentMessages, newMessage]);
+  }, []);
 
   useEffect(() => {
     const newSocket = io(API_ENDPOINT, {
@@ -53,6 +60,9 @@ const useStartButton = () => {
     newSocket?.on("connect", () => {
       console.log(`Socket id: ${newSocket?.id}`);
     });
+
+    newSocket?.on("recieveMessage", handleOnRecieveMessages);
+
     setSocket(newSocket);
 
     return () => {
