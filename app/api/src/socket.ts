@@ -7,12 +7,11 @@ const io = new Server({cors: {
 
 io.connectTimeout(15000);
 
-io.on('connection', (socket) => {
+io.on('connection', async (socket) => {
   console.log('connection');
 
   const roomId = 'room';
-
-  socket.join(roomId);
+  await socket.join(roomId);
 
   socket.on('disconnect', () => {
     console.log('disconnect');
@@ -22,7 +21,7 @@ io.on('connection', (socket) => {
     console.log(`sendMessage: ${JSON.stringify(msg)}`);
     io.to(roomId).emit('recieveMessage', msg);
   });
-  
+
 });
 
 export default io;
