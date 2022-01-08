@@ -1,4 +1,5 @@
 import { RedisAdapterOptions } from "@socket.io/redis-adapter";
+import { Emitter } from "@socket.io/redis-emitter";
 import { createClient } from "redis";
 
 const host = process.env['REDIS_HOST'] || 'redis';
@@ -17,10 +18,13 @@ const adapterOptions = {
   publishOnSpecificResponseChannel: true,
 } as RedisAdapterOptions;
 
+const emitter = new Emitter(publisher);
+
 publisher.on('error', (err) => {
   console.error('Redis Client Error:', err);
 });
 
 export { publisher };
 export { subscriber };
+export { emitter };
 export { adapterOptions };

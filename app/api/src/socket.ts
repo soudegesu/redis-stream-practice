@@ -1,4 +1,5 @@
 import { Server } from 'socket.io';
+import { emitter } from './redis';
 
 const io = new Server({cors: {
   origin: '*',
@@ -19,7 +20,7 @@ io.on('connection', async (socket) => {
 
   socket.on('sendMessage', msg => {
     console.log(`sendMessage: ${JSON.stringify(msg)}`);
-    io.to(roomId).emit('recieveMessage', msg);
+    emitter.to(roomId).emit('recieveMessage', msg);
   });
 
 });
